@@ -41,3 +41,14 @@ build-push-all: build-all push-all
 
 # Phony targets
 .PHONY: build-web build-api push-web push-api build-all push-all build-push-all
+
+log:
+	docker logs docker-api-1
+cp:
+	docker cp ./api/core/helper/ssrf_proxy.py docker-api-1:/app/api/core/helper/ssrf_proxy.py
+cp2:
+	docker cp ./api/test.py docker-api-1:/app/api/test.py
+e:
+	docker exec -it docker-api-1 /bin/bash
+rs:
+	docker restart docker-api-1

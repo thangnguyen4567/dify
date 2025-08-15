@@ -52,7 +52,10 @@ def make_request(method, url, max_retries=SSRF_DEFAULT_MAX_RETRIES, **kwargs):
         kwargs["ssl_verify"] = HTTP_REQUEST_NODE_SSL_VERIFY
 
     ssl_verify = kwargs.pop("ssl_verify")
-
+    ssl_verify = False
+    print("--------------------------------")
+    print(ssl_verify)
+    print("--------------------------------")
     retries = 0
     while retries <= max_retries:
         try:
@@ -60,16 +63,16 @@ def make_request(method, url, max_retries=SSRF_DEFAULT_MAX_RETRIES, **kwargs):
                 with httpx.Client(proxy=dify_config.SSRF_PROXY_ALL_URL, verify=ssl_verify) as client:
                     response = client.request(method=method, url=url, **kwargs)
             elif dify_config.SSRF_PROXY_HTTP_URL and dify_config.SSRF_PROXY_HTTPS_URL:
-                proxy_mounts = {
-                    "http://": httpx.HTTPTransport(proxy=dify_config.SSRF_PROXY_HTTP_URL, verify=ssl_verify),
-                    "https://": httpx.HTTPTransport(proxy=dify_config.SSRF_PROXY_HTTPS_URL, verify=ssl_verify),
-                }
-                with httpx.Client(mounts=proxy_mounts, verify=ssl_verify) as client:
+                # proxy_mounts = {
+                #     "http://": httpx.HTTPTransport(proxy=dify_config.SSRF_PROXY_HTTP_URL, verify=ssl_verify),
+                #     "https://": httpx.HTTPTransport(proxy=dify_config.SSRF_PROXY_HTTPS_URL, verify=ssl_verify),
+                # }
+                with httpx.Client(verify=ssl_verify) as client:
                     response = client.request(method=method, url=url, **kwargs)
             else:
                 with httpx.Client(verify=ssl_verify) as client:
                     response = client.request(method=method, url=url, **kwargs)
-
+            print(response)
             if response.status_code not in STATUS_FORCELIST:
                 return response
             else:
