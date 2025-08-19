@@ -4,10 +4,11 @@ import classNames from '@/utils/classnames'
 import useTheme from '@/hooks/use-theme'
 import { basePath } from '@/utils/var'
 export type LogoStyle = 'default' | 'monochromeWhite'
+const path = process.env.NEXT_PUBLIC_BASE_PATH || basePath
 
 export const logoPathMap: Record<LogoStyle, string> = {
-  default: '/logo/logo.svg',
-  monochromeWhite: '/logo/logo-monochrome-white.svg',
+  default: `${path}/logo/logo.svg`,
+  monochromeWhite: `${path}/logo/logo-monochrome-white.svg`,
 }
 
 export type LogoSize = 'large' | 'medium' | 'small'

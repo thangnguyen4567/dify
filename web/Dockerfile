@@ -40,6 +40,7 @@ RUN pnpm build
 # production stage
 FROM base AS production
 
+ENV NEXT_PUBLIC_BASE_PATH=/workflow
 ENV NODE_ENV=production
 ENV EDITION=SELF_HOSTED
 ENV DEPLOY_ENV=PRODUCTION

@@ -15,7 +15,9 @@ import { noop } from 'lodash-es'
 import { basePath } from '@/utils/var'
 
 // load file from local instead of cdn https://github.com/suren-atoyan/monaco-react/issues/482
-loader.config({ paths: { vs: `${basePath}/vs` } })
+const path = process.env.NEXT_PUBLIC_BASE_PATH || basePath
+
+loader.config({ paths: { vs: `${path}/vs` } })
 
 const CODE_EDITOR_LINE_HEIGHT = 18
 

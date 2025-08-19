@@ -60,8 +60,8 @@ const nextConfig = {
   async redirects() {
     return [
       {
-        source: '/',
-        destination: '/apps',
+        source: basePath === '' ? '/' : basePath,
+        destination: basePath === '' ? '/apps' : `${basePath}/apps`,
         permanent: false,
       },
     ]
